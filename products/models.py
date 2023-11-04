@@ -20,13 +20,14 @@ class Product(models.Model):
 
     name = models.CharField(max_length=50)
     text = models.TextField(**NULLBALE)
-    # image = models.ImageField(**NULLBALE)
+    image = models.ImageField(upload_to='products/', **NULLBALE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     price = models.FloatField()
     create_date = models.DateField(auto_now_add=True)
     change_date = models.DateField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return (f'{self.name} \n'
+                f'{self.text}')
 
 
