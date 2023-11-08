@@ -1,24 +1,14 @@
 from django.shortcuts import render
 
 from products.models import Product
+from django.views.generic import ListView
 
 
-# Create your views here.
-def contacts_index(request):
-    return render(request, 'products/contacts.html')
+class HomeListView(ListView):
+    model = Product
 
 
-def home_index(request):
-    return render(request, 'products/home.html')
-
-
-
-def page_index(request):
-    product_list = Product.objects.all()
-    content = {
-        'object_list': product_list
-    }
-    return render(request, 'products/index.html', content)
-
-
+class ContactListView(ListView):
+    model = Product
+    template_name = 'products/contact_list.html'
 

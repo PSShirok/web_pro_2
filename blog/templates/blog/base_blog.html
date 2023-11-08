@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Продукты оптом</title>
+    <title>БЛОГ</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -22,8 +22,15 @@
       <div class="collapse bg-dark" id="navbarHeader">
         <div class="container">
           <div class="row">
-            {% include 'products/includes/inc_menu.html' %}
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">Меню</h4>
+              <ul class="list-unstyled">
+                <li><a href="/" class="text-white">Главная</a></li>
+                <li><a href="{% url 'blog:blogpost_list' %}" class="text-white">Контакты</a></li>
+                  <li><a href="{% url 'blog:blogpost_list' %}" class="text-white">Контакты</a></li>
 
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -41,14 +48,12 @@
     </header>
 
     <main role="main">
-        <div class="btn-group">
-        <button type="button" class="btn btn-primary">В домашку 20.1
-        <li><a href="{% url 'blog:blogpost_list' %}" class="text-white">Блог</a></li></button>
+
     </div>
       <section class="jumbotron text-center">
         <div class="container">
-          <h1 class="jumbotron-heading">ПРОДУКТЫ ОПТОМ</h1>
-          <p class="lead text-muted">бери пока есть</p>
+          <h1 class="jumbotron-heading">БЛОГ</h1>
+          <p class="lead text-muted">домашка по блогу</p>
         </div>
       </section>
       <div class="album py-5 bg-light">

@@ -1,15 +1,12 @@
 from django.urls import path
 
-from products.views import contacts_index, home_index, page_index
+from products.views import ContactListView, HomeListView
 from products.apps import ProductsConfig
 
 app_name = ProductsConfig.name
 
 urlpatterns = [
-    path('contacts/', contacts_index, name='contacts'),
-    path('', home_index, name='home'),
-    path('product/', page_index, name='product'),
-
-
+    path('contact_list/', ContactListView.as_view(), name='contact_list'),
+    path('', HomeListView.as_view(), name='home'),
 
 ]

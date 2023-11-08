@@ -1,0 +1,24 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block content %}
+
+    <div class="col-12">
+        <div class="row">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h12 class="card-title">Информация о записи "{{ object.name }} ({{ object.slug }})</h12>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ object.text }}
+                        <img class="card-img-top"
+                     src="/media/{{ object.image }}" alt="Card image cap"></p>
+                    </div>
+                    <div class="card-footer">
+                        Просмотры {{ object.view_count }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
