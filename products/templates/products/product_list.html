@@ -1,6 +1,8 @@
 {% extends 'products/Base.html' %}
 {% load tags %}
 {% block content %}
+    <div class="row">
+        <a class="btn btn-outline-primary" href="{% url 'products:create_product' %}">Добавить продукт</a>
 
           <div class="row">
               {% for object in object_list %}
@@ -10,11 +12,12 @@
 {#                     src="/media/{{ object.image }}" alt="Card image cap">#}
                   src="{{ object.image| mediapath }}" alt="Card image cap">
                 <div class="card-body">
-                  <p class="card-text">{{ object.name}}<br>
+                  <p class="card-text">{{ object.name}}<br>{{ object.category }}<br>
                   {{ object.text | truncatechars:100 }}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">{{ object.category }}</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Просмотр</button>
+                        <a href="{% url 'products:update_product'  object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">Редактировать</a>
 
                     </div>
 
