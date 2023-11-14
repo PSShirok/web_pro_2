@@ -31,3 +31,13 @@ class Product(models.Model):
                 f'{self.text}')
 
 
+class Version(models.Model):
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    version_num = models.IntegerField(**NULLBALE)
+    version_name = models.CharField(max_length=50, **NULLBALE)
+    ver_is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'{self.version_num} {self.version_name}'
+

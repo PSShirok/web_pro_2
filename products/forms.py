@@ -1,6 +1,6 @@
 from django import forms
 
-from products.models import Product
+from products.models import Product, Version
 
 
 class ProductForm(forms.ModelForm):
@@ -28,3 +28,10 @@ class ProductForm(forms.ModelForm):
                                         'полиция', 'радар']:
             raise forms.ValidationError('Это запрещено продавать')
         return clean_text
+
+
+class VersionForm(forms.ModelForm):
+
+    class Meta:
+        model = Version
+        fields = '__all__'
