@@ -30,10 +30,11 @@ class RegisterView(CreateView):
     template_name = 'users/register.html'
 
     def form_valid(self, form):
-        self.object=form.save()
+        self.object = form.save()
         send_mail(
-            subject='Поздарвляем с успешной регистрацией',
-            message='Добро пожаловать',
+            subject='Поздарвляем с успешной регистрацией, подтвердите адрес электронной почты',
+            message=f'Добро пожаловать, подтвердите адрес перейдя по ссылке \n'
+                    f'{self.object.verify_key}',
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[self.object.email]
 
@@ -62,3 +63,6 @@ def generate_new_password(request):
     request.user.set_password(new_password)
     request.user.save()
     return redirect(reverse('products:home'))
+
+def activate_user(request):
+    pass
