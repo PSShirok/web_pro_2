@@ -31,15 +31,20 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
+        self.object.user_key = ''.join([str(random.randint(0, 9)) for _ in range(8)])
+        self.object.is_active = False
         send_mail(
             subject='Поздарвляем с успешной регистрацией, подтвердите адрес электронной почты',
             message=f'Добро пожаловать, подтвердите адрес перейдя по ссылке \n'
-                    f'http://127.0.0.1:8000/users/activate/{self.object.verify_key}',
+                    f'http://127.0.0.1:8000/users/activate/{self.object.user_key}',
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[self.object.email]
 
         )
         return super().form_valid(form)
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
 
 class UserUpdateView(UpdateView):
@@ -65,9 +70,10 @@ def generate_new_password(request):
     return redirect(reverse('products:home'))
 
 
-def activate_user(request):
-    path = request.path[:8]
-    user = User.objects.get(user_key=path)
+def activate_user(request, user_key):
+    # path = request.path[:8]
+    user = User.objects.get(user_key=user_key)
+
     user.is_active = True
     user.save()
     return redirect(reverse('users:login'))
