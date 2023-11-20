@@ -34,7 +34,7 @@ class RegisterView(CreateView):
         send_mail(
             subject='Поздарвляем с успешной регистрацией, подтвердите адрес электронной почты',
             message=f'Добро пожаловать, подтвердите адрес перейдя по ссылке \n'
-                    f'{self.object.verify_key}',
+                    f'http://127.0.0.1:8000/users/activate/{self.object.verify_key}',
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[self.object.email]
 
@@ -64,5 +64,10 @@ def generate_new_password(request):
     request.user.save()
     return redirect(reverse('products:home'))
 
+
 def activate_user(request):
-    pass
+    path = request.path[:8]
+    user = User.objects.get(user_key=path)
+    user.is_active = True
+    user.save()
+    return redirect(reverse('users:login'))

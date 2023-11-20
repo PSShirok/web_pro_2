@@ -15,11 +15,12 @@ class User(AbstractUser):
     phone = models.CharField(max_length=30, **NULLBALE)
     country = models.CharField(max_length=30, **NULLBALE)
     is_active = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     @property
     def verify_key(self):
         user_key = ''.join([str(random.randint(0, 9)) for _ in range(8)])
-        User.save()
+
         return user_key
