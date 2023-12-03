@@ -1,5 +1,6 @@
 import random
 
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.urls import reverse_lazy, reverse
 from django.conf import settings
@@ -7,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.views.generic import CreateView, UpdateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from users.forms import UserRegisterForm, UserForm
 from users.models import User
 
@@ -23,9 +24,10 @@ class LoginView(BaseLoginView):
     template_name = 'users/login.html'
 
 
-class RegisterView(CreateView):
+class RegisterView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = User
     form_class = UserRegisterForm
+    permission_required = 'users.add_user'
     success_url = reverse_lazy('users:login')
     template_name = 'users/register.html'
 
@@ -47,10 +49,11 @@ class RegisterView(CreateView):
         return self.request.user
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = User
     success_url = reverse_lazy('users:profile')
     form_class = UserForm
+    permission_required = 'users.change_user'
 
     def get_object(self, queryset=None):
         return self.request.user
